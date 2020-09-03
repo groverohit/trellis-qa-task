@@ -14,8 +14,19 @@ describe('AppService', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to api!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to api!' });
+    it('should return the created test todo', () => {
+      expect(service.getData()).toEqual([{"completed": false, "id": 1, "title": "Test"}]);
+    });
+
+    //Test to add, complete and delete a To-Do
+    it('should be able to add, complete and delete a todo', () => {
+      let id: Number = service.addTodo({title: 'Test-int-todo'}).id;
+      expect(id).toBeTruthy;
+
+      expect(service.toggleCompleted(id)[1].completed).toEqual(true);
+
+      let remainingTodos: Object = service.deleteTodo(id).map(a=>a.id);
+      expect(remainingTodos).not.toContain(id);
     });
   });
 });

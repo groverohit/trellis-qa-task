@@ -13,7 +13,14 @@ export class TodoInputComponent implements OnInit {
   }
 
   addTodo(text: HTMLInputElement) {
-    this.newTodo.emit(text.value);
-    text.value = '';
+    if(text.value) {
+      // if the To-Do has a title, create it
+      this.newTodo.emit(text.value);
+      text.value = '';
+    }
+    else {
+      //if the To-Do does not have a title, do not create it and alert the user 
+      alert('Please enter Todo title');
+    }
   }
 }
